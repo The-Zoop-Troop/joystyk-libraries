@@ -1,0 +1,214 @@
+# The all-ages blocklist for generated content (content-pipeline.md, "The all-ages filter",
+# layer 1): profanity, slurs, sexual terms, drug terms and graphic violence. A whole-word
+# match, in any regular inflected form, in any text field rejects the item. A trailing "*"
+# matches any word starting with the stem. Multi-word lines match as phrases.
+#
+# Source: curated from the English list of "List of Dirty, Naughty, Obscene, and Otherwise
+#         Bad Words" (LDNOOBW), https://github.com/LDNOOBW/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words
+#         file `en`, commit 5faf2ba42d7b1c0977169ec3611df25a3c08eb13, by way of the display-name
+#         blocklist in packages/identity/src/names/blocklist.ts, plus original additions.
+# License: Creative Commons Attribution 4.0 International (CC BY 4.0),
+#          https://creativecommons.org/licenses/by/4.0/ . Copyright Shutterstock, Inc. and the
+#          LDNOOBW contributors. Our additions are original.
+# Changes: curated, not copied: phrases reduced, words with innocent everyday meanings
+#          dropped, stems replace families of inflections, additions marked by section.
+# After editing: two games keep generated copies. Rebuild them, then run their tests:
+#          node games/hangman/src/content/build-blocklist.ts
+#          node games/daily-word/src/content/build-words.ts
+
+# Profanity and insults
+arse
+arsehole*
+ass
+asses
+asshole*
+bastard*
+bitch*
+bollock*
+bullshit*
+crap
+crappy
+damn
+damned
+dammit
+goddamn*
+fuck*
+motherfuck*
+shit*
+piss*
+twat*
+wank*
+wtf
+stfu
+jackass
+dumbass
+douche*
+retard*
+moron
+idiot
+stupid
+fart
+prat
+
+# Slurs and hate (stems and words)
+beaner
+chink
+coon
+darkie
+dyke
+fag
+faggot*
+fagot*
+gook
+homo
+honkey
+jigaboo
+jiggaboo
+kike
+kkk
+negro
+nigg*
+paki
+poof
+poofter*
+raghead
+spic
+towelhead
+tranny
+wetback
+nazi*
+hitler
+swastika*
+
+# Sexual terms
+anal
+anus
+blowjob*
+boner
+boob*
+bukkake
+butt
+clit*
+cock
+creampie
+cum
+cumshot*
+cunnil*
+cunt*
+dick
+dildo*
+ejaculat*
+erotic*
+fellat*
+gangbang*
+handjob*
+hentai
+horny
+incest*
+jailbait
+jizz*
+kinky
+masturbat*
+milf
+nude*
+naked
+nudity
+orgasm*
+orgy
+orgies
+paedophil*
+pedo
+pedophil*
+penis*
+poontang
+porn*
+punany
+pussy
+quim
+queef*
+rape*
+raping
+rapist*
+rimjob*
+schlong*
+scrotum*
+semen
+sex
+sexy
+sexual*
+sexting
+shemale*
+slut*
+smegma
+smut*
+sodom*
+splooge
+spunk
+stripper*
+striptease
+testicle*
+threesome*
+tit
+tits
+titties
+titty
+upskirt*
+vagina*
+voyeur*
+whore*
+xxx
+condom
+condoms
+viagra
+brothel*
+prostitut*
+hooker*
+seduc*
+seductive
+lust
+lustful
+lewd
+
+# Drug terms (original additions)
+cocaine
+heroin
+meth
+methamphetamine
+crack cocaine
+marijuana
+cannabis
+reefer
+narcotic*
+opium
+opioid*
+ecstasy pill*
+lsd
+overdos*
+junkie*
+druggie*
+drug
+drugs
+
+# Graphic violence (original additions)
+behead*
+decapitat*
+dismember*
+disembowel*
+mutilat*
+massacr*
+slaughter*
+tortur*
+gore
+gory
+bloodbath*
+bloodshed
+stab
+stabs
+stabbed
+stabbing
+strangl*
+lynch*
+genocide*
+murder*
+gunfire
+gunshot*

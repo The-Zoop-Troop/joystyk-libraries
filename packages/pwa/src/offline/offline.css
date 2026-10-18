@@ -1,0 +1,94 @@
+/* The offline page stands alone: it can't count on the site's inlined stylesheets, so it
+   carries the few Joystyk colors it needs. */
+:root {
+  color-scheme: light dark;
+  --surface: light-dark(oklch(98.5% 0.006 285), oklch(17% 0.02 285));
+  --text: light-dark(oklch(22% 0.03 285), oklch(94% 0.012 285));
+  --muted: color-mix(in oklch, var(--text) 68%, var(--surface));
+  --accent: light-dark(oklch(50% 0.2 285), oklch(76% 0.13 285));
+  --on-accent: light-dark(oklch(99% 0.005 285), oklch(18% 0.03 285));
+  --magenta: oklch(68% 0.25 350);
+}
+
+body {
+  margin: 0;
+  background: var(--surface);
+  color: var(--text);
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.5;
+}
+
+main {
+  max-inline-size: 40rem;
+  margin-inline: auto;
+  padding: 2rem 1rem 3rem;
+}
+
+.kicker {
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--magenta);
+}
+
+h1 {
+  margin-block: 0.25rem 0.5rem;
+  font-size: clamp(1.9rem, 1.5rem + 2vw, 2.8rem);
+  line-height: 1.1;
+}
+
+h2 {
+  font-size: 1.25rem;
+  margin-block: 2rem 0.5rem;
+}
+
+.lede,
+#none {
+  color: var(--muted);
+}
+
+a {
+  color: var(--accent);
+}
+
+#games {
+  padding-inline-start: 1.25rem;
+}
+
+#games a {
+  display: inline-block;
+  min-block-size: 2.75rem;
+  padding-block: 0.6rem;
+  font-weight: 600;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin-block-start: 2rem;
+}
+
+button {
+  min-block-size: 2.75rem;
+  padding: 0.25rem 1.25rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--on-accent);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+[hidden] {
+  display: none !important;
+}

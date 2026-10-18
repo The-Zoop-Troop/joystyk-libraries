@@ -1,0 +1,49 @@
+{
+  "name": "@joystyk/libraries-workspace",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.33.2",
+  "engines": {
+    "node": ">=24.15.0 <25"
+  },
+  "scripts": {
+    "check": "pnpm check:source && pnpm check:arch && pnpm check:docs && pnpm check:conflicts && pnpm format:check && pnpm typecheck && pnpm lint && pnpm test:unit && pnpm test:browser && pnpm build && pnpm check:release",
+    "check:source": "node scripts/check-source.ts",
+    "check:arch": "node scripts/check-architecture.ts",
+    "check:docs": "node scripts/check-docs.ts",
+    "check:conflicts": "node scripts/check-conflicts.ts",
+    "format:check": "prettier --check \"**/*.ts\"",
+    "format": "prettier --write \"**/*.ts\"",
+    "typecheck": "tsc --noEmit && pnpm -r run typecheck",
+    "lint": "eslint .",
+    "test:unit": "vitest run --project unit",
+    "test:browser": "vitest run --project browser",
+    "build": "pnpm -r run build",
+    "check:pack": "node scripts/pack-check.ts",
+    "verify:install": "node scripts/verify-install.ts",
+    "check:release": "node scripts/verify-install.ts --release",
+    "changeset": "changeset",
+    "version:packages": "changeset version",
+    "release:stage": "node scripts/stage-release.ts"
+  },
+  "devDependencies": {
+    "@gyral/core": "catalog:",
+    "@types/node": "catalog:",
+    "@typescript-eslint/parser": "catalog:",
+    "@vitest/browser-playwright": "catalog:",
+    "eslint": "catalog:",
+    "parse5": "catalog:",
+    "playwright": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vitest": "catalog:",
+    "@gyral/testing": "catalog:",
+    "zod": "catalog:",
+    "publint": "catalog:",
+    "@arethetypeswrong/cli": "catalog:",
+    "@changesets/cli": "catalog:",
+    "npm": "catalog:",
+    "@gyral/ssr": "catalog:",
+    "prettier": "catalog:"
+  }
+}

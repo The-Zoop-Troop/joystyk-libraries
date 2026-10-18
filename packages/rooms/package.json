@@ -1,0 +1,71 @@
+{
+  "name": "@joystyk/rooms",
+  "version": "0.1.0",
+  "description": "The room server: a pure room core, the versioned wire protocol and a Node adapter (WebSockets, SQLite, timers, worker jobs).",
+  "private": false,
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": "./src/index.ts",
+    "./protocol": "./src/protocol/index.ts",
+    "./node": "./src/node/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "node ../../scripts/build-package.ts",
+    "prepack": "node ../../scripts/build-package.ts"
+  },
+  "dependencies": {
+    "@joystyk/contracts": "workspace:*",
+    "@joystyk/identity": "workspace:*",
+    "@joystyk/kit": "workspace:*",
+    "@joystyk/ops": "workspace:*",
+    "ws": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "@types/ws": "catalog:",
+    "fast-check": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vitest": "catalog:"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "./protocol": {
+        "types": "./dist/protocol/index.d.ts",
+        "default": "./dist/protocol/index.js"
+      },
+      "./node": {
+        "types": "./dist/node/index.d.ts",
+        "default": "./dist/node/index.js"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "NOTICE",
+    "CHANGELOG.md"
+  ],
+  "engines": {
+    "node": ">=24.15.0"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/The-Zoop-Troop/joystyk-libraries.git",
+    "directory": "packages/rooms"
+  },
+  "homepage": "https://github.com/The-Zoop-Troop/joystyk-libraries/tree/main/packages/rooms#readme",
+  "bugs": {
+    "url": "https://github.com/The-Zoop-Troop/joystyk-libraries/issues"
+  }
+}

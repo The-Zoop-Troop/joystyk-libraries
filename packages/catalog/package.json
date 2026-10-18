@@ -1,0 +1,79 @@
+{
+  "name": "@joystyk/catalog",
+  "version": "0.1.0",
+  "description": "The Joystyk catalog: manifest registry, slot registry, routes and the server-rendered index, category and game pages.",
+  "private": false,
+  "type": "module",
+  "sideEffects": [
+    "**/client.[jt]s",
+    "**/server.[jt]s",
+    "**/components/*.[jt]s",
+    "**/styles.css"
+  ],
+  "exports": {
+    ".": "./src/index.ts",
+    "./client": "./src/client.ts",
+    "./server": "./src/server.ts",
+    "./styles.css": "./src/styles.css"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "node ../../scripts/build-package.ts",
+    "prepack": "node ../../scripts/build-package.ts"
+  },
+  "dependencies": {
+    "@gyral/core": "catalog:",
+    "@gyral/http": "catalog:",
+    "@gyral/router": "catalog:",
+    "@gyral/ssr": "catalog:",
+    "@joystyk/contracts": "workspace:*",
+    "@joystyk/launcher": "workspace:*",
+    "@joystyk/ui": "workspace:*",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@gyral/testing": "catalog:",
+    "parse5": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vitest": "catalog:"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "./client": {
+        "types": "./dist/client.d.ts",
+        "default": "./dist/client.js"
+      },
+      "./server": {
+        "types": "./dist/server.d.ts",
+        "default": "./dist/server.js"
+      },
+      "./styles.css": "./dist/styles.css"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "NOTICE",
+    "CHANGELOG.md"
+  ],
+  "engines": {
+    "node": ">=24.15.0"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/The-Zoop-Troop/joystyk-libraries.git",
+    "directory": "packages/catalog"
+  },
+  "homepage": "https://github.com/The-Zoop-Troop/joystyk-libraries/tree/main/packages/catalog#readme",
+  "bugs": {
+    "url": "https://github.com/The-Zoop-Troop/joystyk-libraries/issues"
+  }
+}

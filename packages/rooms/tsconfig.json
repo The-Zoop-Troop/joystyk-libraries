@@ -1,0 +1,9 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    // The core and the protocol use no host APIs; the Node adapter (src/node/) needs Node's types.
+    "lib": ["ES2023"],
+    "types": ["node"]
+  },
+  "include": ["src", "*.config.ts"]
+}

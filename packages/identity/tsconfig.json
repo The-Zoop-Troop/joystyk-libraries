@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    // The browser entry point (src/browser/) uses the DOM. tsconfig.core.json checks the
+    // core without it.
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "types": []
+  },
+  "include": ["src", "*.config.ts"]
+}

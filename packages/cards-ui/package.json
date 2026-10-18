@@ -1,0 +1,77 @@
+{
+  "name": "@joystyk/cards-ui",
+  "version": "0.1.0",
+  "description": "Shared card-game UI: original card faces and backs, pile layouts, <jy-card-table>, the pointer and keyboard controller for solitaire and other card games, and <jy-card-hand>, the hand widget for multiplayer card games.",
+  "private": false,
+  "type": "module",
+  "sideEffects": [
+    "**/index.[jt]s",
+    "**/table.[jt]s",
+    "**/hand.[jt]s",
+    "**/solitaire.[jt]s"
+  ],
+  "exports": {
+    ".": "./src/index.ts",
+    "./controller": "./src/controller.ts",
+    "./layout": "./src/layout.ts",
+    "./solitaire": "./src/solitaire.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "node ../../scripts/build-package.ts",
+    "prepack": "node ../../scripts/build-package.ts"
+  },
+  "dependencies": {
+    "@joystyk/contracts": "workspace:*",
+    "@gyral/core": "catalog:",
+    "@joystyk/kit": "workspace:*"
+  },
+  "devDependencies": {
+    "@gyral/testing": "catalog:",
+    "@joystyk/ui": "workspace:*",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vitest": "catalog:"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "./controller": {
+        "types": "./dist/controller.d.ts",
+        "default": "./dist/controller.js"
+      },
+      "./layout": {
+        "types": "./dist/layout.d.ts",
+        "default": "./dist/layout.js"
+      },
+      "./solitaire": {
+        "types": "./dist/solitaire.d.ts",
+        "default": "./dist/solitaire.js"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "NOTICE",
+    "CHANGELOG.md"
+  ],
+  "engines": {
+    "node": ">=24.15.0"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/The-Zoop-Troop/joystyk-libraries.git",
+    "directory": "packages/cards-ui"
+  },
+  "homepage": "https://github.com/The-Zoop-Troop/joystyk-libraries/tree/main/packages/cards-ui#readme",
+  "bugs": {
+    "url": "https://github.com/The-Zoop-Troop/joystyk-libraries/issues"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    // Server only: Node APIs (node:sqlite, node:fs, fetch), never the DOM.
+    "lib": ["ES2023"],
+    "types": ["node"]
+  },
+  "include": ["src", "lists"]
+}

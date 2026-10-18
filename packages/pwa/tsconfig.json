@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    // The page's side (src/client, src/offline) uses the DOM; the build (src/build) runs in
+    // Node. The service worker has its own config with the worker's globals: tsconfig.sw.json.
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "types": ["node"]
+  },
+  "include": ["src", "*.config.ts"],
+  "exclude": ["src/sw"]
+}

@@ -1,0 +1,9 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    // Contracts run everywhere (browser, worker, server) and touch nothing: no DOM, no Node.
+    "lib": ["ES2023"],
+    "types": []
+  },
+  "include": ["src", "*.config.ts"]
+}

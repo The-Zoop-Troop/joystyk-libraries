@@ -1,0 +1,60 @@
+{
+  "name": "@joystyk/content",
+  "version": "0.1.0",
+  "description": "The AI content pipeline (server only): model client, generate, validate, all-ages filter, SQLite records, and publishing daily files in the daily package's format.",
+  "private": false,
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build-lists": "node lists/build-lists.ts",
+    "build-ranked": "node lists/build-ranked.ts",
+    "build": "node ../../scripts/build-package.ts",
+    "prepack": "node ../../scripts/build-package.ts"
+  },
+  "dependencies": {
+    "@joystyk/contracts": "workspace:*",
+    "@joystyk/daily": "workspace:*",
+    "@joystyk/kit": "workspace:*",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "NOTICE",
+    "CHANGELOG.md",
+    "lists/*.txt",
+    "lists/SCOWL-COPYRIGHT"
+  ],
+  "engines": {
+    "node": ">=24.15.0"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/The-Zoop-Troop/joystyk-libraries.git",
+    "directory": "packages/content"
+  },
+  "homepage": "https://github.com/The-Zoop-Troop/joystyk-libraries/tree/main/packages/content#readme",
+  "bugs": {
+    "url": "https://github.com/The-Zoop-Troop/joystyk-libraries/issues"
+  }
+}

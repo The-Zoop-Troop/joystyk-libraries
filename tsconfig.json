@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "types": ["node"]
+  },
+  "include": ["*.config.ts", "scripts"],
+  // Lint fixtures break the rules on purpose.
+  "exclude": ["scripts/__fixtures__"]
+}

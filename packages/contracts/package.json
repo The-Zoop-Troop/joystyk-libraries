@@ -1,0 +1,50 @@
+{
+  "name": "@joystyk/contracts",
+  "version": "0.1.0",
+  "description": "Platform contracts: plain TypeScript types and tiny helpers, with zero dependencies.",
+  "private": false,
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "node ../../scripts/build-package.ts",
+    "prepack": "node ../../scripts/build-package.ts"
+  },
+  "devDependencies": {
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vitest": "catalog:"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "NOTICE",
+    "CHANGELOG.md"
+  ],
+  "engines": {
+    "node": ">=24.15.0"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/The-Zoop-Troop/joystyk-libraries.git",
+    "directory": "packages/contracts"
+  },
+  "homepage": "https://github.com/The-Zoop-Troop/joystyk-libraries/tree/main/packages/contracts#readme",
+  "bugs": {
+    "url": "https://github.com/The-Zoop-Troop/joystyk-libraries/issues"
+  }
+}

@@ -1,0 +1,1121 @@
+/*
+ * The catalog's document stylesheet: the light-DOM page shell (<jy-app>) and its pages.
+ * Load it after @joystyk/ui/tokens.css, which declares the layer order and the base tokens;
+ * the server inlines both into every page. Billboard slots are <ad-slot> elements from
+ * @joystyk/ui, which reserve their own boxes from the slot registry.
+ *
+ * Direction: 80s and 90s arcade nostalgia (Press start, Insert coin, high-score tables),
+ * kept quiet enough to read. Neon accents live on "screens": panels pinned to the dark
+ * scheme, so the bright colours always sit on a dark surface in both themes. Decorative
+ * motion runs only when the visitor has not asked for reduced motion.
+ */
+
+@layer tokens {
+  :root {
+    /* Neon accents, darker in the light theme so text and borders keep their contrast. */
+    --jy-arcade-magenta: light-dark(oklch(50% 0.22 350), oklch(74% 0.19 350));
+    --jy-arcade-cyan: light-dark(oklch(47% 0.1 220), oklch(83% 0.13 210));
+    --jy-arcade-yellow: light-dark(oklch(50% 0.11 75), oklch(88% 0.16 95));
+    --jy-arcade-ink: oklch(19% 0.03 285);
+    --jy-shell-max: 76rem;
+    --jy-gutter: clamp(1rem, 0.6rem + 1.6vw, 2rem);
+  }
+}
+
+@layer reset {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  body,
+  h1,
+  h2,
+  h3,
+  p,
+  ol,
+  ul,
+  dl,
+  dd,
+  figure {
+    margin: 0;
+  }
+  svg {
+    display: block;
+  }
+  button,
+  input,
+  textarea {
+    font: inherit;
+  }
+}
+
+@layer base {
+  html {
+    scrollbar-gutter: stable;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+  body {
+    min-block-size: 100dvh;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,
+  h2,
+  h3 {
+    line-height: 1.15;
+    text-wrap: balance;
+  }
+  h1 {
+    font-size: var(--jy-step-3);
+    letter-spacing: -0.01em;
+  }
+  h2 {
+    font-size: var(--jy-step-2);
+  }
+  h3 {
+    font-size: var(--jy-step-1);
+  }
+  p,
+  li,
+  dd {
+    text-wrap: pretty;
+  }
+  p {
+    max-inline-size: 65ch;
+  }
+  a {
+    color: inherit;
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.2em;
+  }
+  a:hover {
+    text-decoration-thickness: 0.16em;
+  }
+  ::selection {
+    background: color-mix(in oklch, var(--jy-arcade-magenta) 35%, transparent);
+  }
+  /* Targets of programmatic focus (after navigation, the skip link) need no ring for mouse users. */
+  [tabindex='-1']:focus:not(:focus-visible) {
+    outline: none;
+  }
+}
+
+@layer layout {
+  jy-app {
+    display: flex;
+    flex-direction: column;
+    min-block-size: 100dvh;
+    container: shell / inline-size;
+  }
+
+  .masthead,
+  jy-app > main,
+  .site-footer {
+    inline-size: 100%;
+    max-inline-size: var(--jy-shell-max);
+    margin-inline: auto;
+    padding-inline: var(--jy-gutter);
+  }
+
+  jy-app > main {
+    flex: 1;
+    padding-block: var(--jy-space-s) var(--jy-space-l);
+  }
+
+  .with-rail {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--jy-space-l);
+  }
+
+  /* Single-column grids get a zero minimum, so a wide child (the scrolling lineup table)
+     never widens the page past the screen. */
+  .column,
+  .categories,
+  .game-page {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .column {
+    display: grid;
+    gap: var(--jy-space-l);
+    align-content: start;
+    min-inline-size: 0;
+  }
+
+  /* The rail column appears on wide shells; its 160px column fits the rail slot's box. */
+  .rail {
+    display: none;
+  }
+  @container shell (inline-size >= 60rem) {
+    .with-rail {
+      grid-template-columns: minmax(0, 1fr) 160px;
+    }
+    .rail {
+      display: block;
+      position: sticky;
+      inset-block-start: var(--jy-space-s);
+      align-self: start;
+    }
+  }
+}
+
+@layer components {
+  /* --- Accents per category ---------------------------------------------------------- */
+  [data-category] {
+    --accent: var(--jy-accent);
+  }
+  [data-category='arcade'] {
+    --accent: var(--jy-arcade-magenta);
+  }
+  [data-category='cards'] {
+    --accent: var(--jy-arcade-cyan);
+  }
+  [data-category='dice'] {
+    --accent: var(--jy-arcade-yellow);
+  }
+
+  /* --- Screen-reader text and the skip link ------------------------------------------ */
+  .visually-hidden,
+  .skip-link:not(:focus) {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .skip-link:focus {
+    position: fixed;
+    inset-block-start: var(--jy-space-2xs);
+    inset-inline-start: var(--jy-space-2xs);
+    z-index: 10;
+    padding: var(--jy-space-2xs) var(--jy-space-s);
+    border-radius: var(--jy-radius-s);
+    background: var(--jy-surface-raised);
+    box-shadow: var(--jy-shadow);
+  }
+
+  /* --- Wordmark, kicker and the arcade type ------------------------------------------- */
+  .wordmark,
+  .kicker,
+  .cta,
+  .badges,
+  .crumbs,
+  .score-table,
+  .cabinet > h2,
+  .facts dt {
+    font-family: var(--jy-font-mono);
+  }
+  .wordmark {
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--jy-arcade-magenta);
+  }
+  @supports (background-clip: text) {
+    .wordmark {
+      background: linear-gradient(in oklch 90deg, var(--jy-arcade-magenta), var(--jy-arcade-cyan));
+      background-clip: text;
+      color: transparent;
+    }
+  }
+  .kicker {
+    font-size: var(--jy-step--1);
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent, var(--jy-arcade-magenta));
+  }
+
+  /* --- Masthead and footer --------------------------------------------------------- */
+  .masthead {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--jy-space-2xs) var(--jy-space-m);
+    padding-block: var(--jy-space-s);
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--jy-space-2xs);
+    min-block-size: var(--jy-target-min);
+    font-size: var(--jy-step-1);
+    text-decoration: none;
+  }
+  .logo {
+    inline-size: 2rem;
+    block-size: 2rem;
+  }
+  .logo-base {
+    fill: var(--jy-text);
+  }
+  .logo-stick {
+    fill: var(--jy-text-muted);
+  }
+  .logo-ball {
+    fill: var(--jy-arcade-magenta);
+  }
+  .logo-button {
+    fill: var(--jy-arcade-cyan);
+  }
+  .main-nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 var(--jy-space-s);
+    padding: 0;
+    list-style: none;
+  }
+  .main-nav a {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: var(--jy-target-min);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .main-nav a:hover,
+  .main-nav a[aria-current='page'] {
+    text-decoration: underline;
+    text-decoration-thickness: 0.16em;
+    text-decoration-color: var(--jy-arcade-magenta);
+  }
+  .site-footer {
+    display: grid;
+    gap: var(--jy-space-3xs);
+    padding-block: 0 var(--jy-space-l);
+    color: var(--jy-text-muted);
+  }
+  /* The rule spans the content column, not the gutters. */
+  .site-footer::before {
+    content: '';
+    margin-block-end: var(--jy-space-s);
+    border-block-start: 2px dashed var(--jy-border);
+  }
+  .wordmark.small {
+    margin-inline-end: 0.5em;
+  }
+  .footer-nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 var(--jy-space-s);
+    padding: 0;
+    list-style: none;
+  }
+  .footer-nav a {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: var(--jy-target-min);
+    color: var(--jy-text);
+  }
+
+  /* --- Screens: panels pinned to the dark scheme ------------------------------------- */
+  .screen,
+  .score-screen,
+  .cabinet {
+    color-scheme: dark;
+    position: relative;
+    background: var(--jy-surface);
+    color: var(--jy-text);
+    border-radius: var(--jy-radius-m);
+    overflow: clip;
+  }
+  /* Scanlines and a soft vignette: decoration only, so they ignore the pointer. */
+  .screen::after,
+  .score-screen::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      repeating-linear-gradient(to bottom, oklch(100% 0 0 / 0.035) 0 1px, transparent 1px 3px),
+      radial-gradient(ellipse at center, transparent 55%, oklch(0% 0 0 / 0.35));
+  }
+  @media (prefers-contrast: more) {
+    .screen::after,
+    .score-screen::after {
+      display: none;
+    }
+  }
+
+  /* --- Hero --------------------------------------------------------------------------- */
+  .hero {
+    margin-block-end: var(--jy-space-l);
+  }
+  .hero .screen {
+    display: grid;
+    gap: var(--jy-space-s);
+    padding: clamp(1.5rem, 1rem + 4cqi, 4rem) clamp(1.25rem, 0.5rem + 4cqi, 4rem);
+    border: 3px solid color-mix(in oklch, var(--jy-arcade-magenta) 55%, transparent);
+    box-shadow:
+      0 0 0 6px var(--jy-arcade-ink),
+      0 18px 40px oklch(20% 0.05 285 / 0.25);
+    background:
+      radial-gradient(ellipse at 20% 0%, oklch(40% 0.15 350 / 0.35), transparent 60%),
+      radial-gradient(ellipse at 90% 100%, oklch(45% 0.12 210 / 0.3), transparent 55%),
+      var(--jy-surface);
+  }
+  .hero h1 {
+    max-inline-size: 22ch;
+    font-size: var(--jy-step-3);
+    text-shadow: 0 0 24px oklch(74% 0.19 350 / 0.45);
+  }
+  .hero .lede {
+    font-size: var(--jy-step-1);
+    color: var(--jy-text-muted);
+  }
+  .hero .kicker {
+    color: var(--jy-arcade-yellow);
+  }
+  .blink::after {
+    content: '';
+    display: inline-block;
+    inline-size: 0.6em;
+    block-size: 1em;
+    margin-inline-start: 0.35em;
+    vertical-align: -0.12em;
+    background: currentColor;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .blink::after {
+      animation: jy-blink 1.1s steps(1, end) infinite;
+    }
+  }
+  @keyframes jy-blink {
+    50% {
+      opacity: 0;
+    }
+  }
+  .hero-actions {
+    margin-block-start: var(--jy-space-2xs);
+  }
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: var(--jy-target-min);
+    padding: 0.6em 1.5em;
+    border-radius: var(--jy-radius-s);
+    background: var(--jy-arcade-yellow);
+    color: var(--jy-arcade-ink);
+    box-shadow: 0 0.3em 0 color-mix(in oklch, var(--jy-arcade-yellow) 50%, black);
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+  .cta:hover {
+    background: color-mix(in oklch, var(--jy-arcade-yellow) 85%, white);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .cta {
+      transition: translate var(--jy-duration-fast) var(--jy-ease-out);
+    }
+    .cta:active {
+      translate: 0 0.2em;
+    }
+  }
+
+  /* --- Section headings ---------------------------------------------------------------- */
+  .featured > h2,
+  .section-head h2,
+  .lineup > h2,
+  .more > h2,
+  .game-page section > h2 {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    margin-block-end: var(--jy-space-s);
+  }
+  .featured > h2::before,
+  .section-head h2::before,
+  .lineup > h2::before {
+    content: '';
+    flex: none;
+    inline-size: 0.55em;
+    block-size: 0.7em;
+    background: var(--accent, var(--jy-arcade-magenta));
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+  }
+  .section-head {
+    display: grid;
+    gap: var(--jy-space-3xs);
+    margin-block-end: var(--jy-space-s);
+  }
+  .section-head h2 {
+    margin-block-end: 0;
+  }
+  .section-head h2 a {
+    text-decoration: none;
+  }
+  .section-head h2 a:hover {
+    text-decoration: underline;
+  }
+  .section-head p,
+  .lede {
+    color: var(--jy-text-muted);
+  }
+  .categories {
+    display: grid;
+    gap: var(--jy-space-l);
+  }
+
+  /* --- Game grid and cards ------------------------------------------------------------- */
+  .game-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+    gap: var(--jy-space-m) var(--jy-space-s);
+    padding: 0;
+    list-style: none;
+  }
+  /* Cards share rows (subgrid), so titles, summaries and badges line up across a row. */
+  .game-grid > li {
+    display: grid;
+    grid-row: span 3;
+    grid-template-rows: subgrid;
+    row-gap: 0;
+  }
+  .game-card {
+    position: relative;
+    display: grid;
+    grid-row: span 3;
+    grid-template-rows: subgrid;
+    row-gap: var(--jy-space-2xs);
+    container-type: inline-size;
+    padding: var(--jy-space-s);
+    border: 2px solid var(--jy-border);
+    border-block-start: 6px solid var(--accent);
+    border-radius: var(--jy-radius-s);
+    background: var(--jy-surface-raised);
+    box-shadow: 5px 5px 0 color-mix(in oklch, var(--accent) 22%, transparent);
+  }
+  .game-card h2,
+  .game-card h3 {
+    font-size: var(--jy-step-1);
+  }
+  .game-card a {
+    text-decoration: none;
+  }
+  /* The whole card is the link's hit area; the ring moves to the card. */
+  .game-card a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+  .game-card a:focus-visible {
+    outline: none;
+  }
+  .game-card:has(a:focus-visible) {
+    outline: 3px solid var(--jy-focus-ring);
+    outline-offset: 3px;
+  }
+  .game-card:hover {
+    border-color: var(--accent);
+  }
+  .game-card:hover a {
+    text-decoration: underline;
+  }
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .game-card {
+      transition:
+        translate var(--jy-duration) var(--jy-ease-out),
+        box-shadow var(--jy-duration) var(--jy-ease-out);
+    }
+    .game-card:hover {
+      translate: -2px -2px;
+      box-shadow: 7px 7px 0 color-mix(in oklch, var(--accent) 30%, transparent);
+    }
+  }
+  .card-summary {
+    color: var(--jy-text-muted);
+  }
+
+  /* --- Badges -------------------------------------------------------------------------- */
+  .badges {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: start;
+    gap: var(--jy-space-3xs);
+    padding: 0;
+    list-style: none;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .badges li {
+    padding: 0.2em 0.55em;
+    border: 1px solid var(--jy-border);
+    border-radius: 0.25rem;
+    background: color-mix(in oklch, var(--jy-text) 4%, transparent);
+  }
+  .badges .badge-status {
+    border-color: var(--accent, var(--jy-border));
+    font-weight: 700;
+  }
+  @container (inline-size < 15rem) {
+    .badges li:not(.badge-status) {
+      font-size: 0.72rem;
+    }
+  }
+
+  /* --- The lineup: a high-score table -------------------------------------------------- */
+  .score-screen {
+    padding: var(--jy-space-s) var(--jy-space-s) var(--jy-space-2xs);
+    border: 3px solid color-mix(in oklch, var(--jy-arcade-cyan) 45%, transparent);
+    overflow-x: auto;
+  }
+  .score-screen:focus-visible {
+    outline: 3px solid var(--jy-focus-ring);
+    outline-offset: 3px;
+  }
+  .score-table {
+    inline-size: 100%;
+    border-collapse: collapse;
+    font-size: var(--jy-step--1);
+    letter-spacing: 0.04em;
+  }
+  .score-table caption {
+    caption-side: bottom;
+    padding-block: var(--jy-space-2xs);
+    color: var(--jy-text-muted);
+    text-align: start;
+  }
+  .score-table th,
+  .score-table td {
+    padding: 0.55em 0.75em;
+    text-align: start;
+    white-space: nowrap;
+  }
+  /* On phones the cells wrap rather than scroll; the screen still scrolls if it must. */
+  @container shell (inline-size < 34rem) {
+    .score-screen {
+      padding-inline: var(--jy-space-2xs);
+    }
+    .score-table {
+      font-size: 0.8rem;
+      letter-spacing: 0;
+    }
+    .score-table th,
+    .score-table td {
+      padding-inline: 0.35em;
+      white-space: normal;
+    }
+  }
+  .score-table thead th {
+    color: var(--jy-arcade-yellow);
+    text-transform: uppercase;
+    border-block-end: 2px solid color-mix(in oklch, var(--jy-arcade-yellow) 50%, transparent);
+  }
+  .score-table tbody tr + tr > * {
+    border-block-start: 1px dotted color-mix(in oklch, var(--jy-text) 25%, transparent);
+  }
+  .score-table tbody th {
+    font-weight: 700;
+  }
+  .score-table tbody th a {
+    color: var(--jy-arcade-magenta);
+  }
+  .score-table .rank {
+    color: var(--jy-arcade-cyan);
+    font-variant-numeric: tabular-nums;
+  }
+  .score-table .num {
+    text-align: end;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* --- Breadcrumbs and page heads ------------------------------------------------------ */
+  .crumbs ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 0.5em;
+    padding: 0;
+    list-style: none;
+    font-size: var(--jy-step--1);
+  }
+  .crumbs li + li::before {
+    content: '/' / '';
+    margin-inline-end: 0.5em;
+    color: var(--jy-text-muted);
+  }
+  .crumbs a {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: var(--jy-target-min);
+  }
+  .crumbs a[aria-current='page'] {
+    text-decoration: none;
+    color: var(--jy-text-muted);
+  }
+  .page-head {
+    display: grid;
+    gap: var(--jy-space-2xs);
+    margin-block: var(--jy-space-2xs) var(--jy-space-l);
+  }
+  .page-head .lede {
+    font-size: var(--jy-step-1);
+  }
+
+  /* --- Game page -------------------------------------------------------------------- */
+  .game-page {
+    display: grid;
+    gap: var(--jy-space-l);
+    container-type: inline-size;
+  }
+  .game-page > .crumbs,
+  .game-page > .page-head {
+    margin-block: 0;
+  }
+  .facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--jy-space-2xs);
+    margin-block-start: var(--jy-space-2xs);
+  }
+  .facts > div {
+    padding: 0.45em 0.8em;
+    border: 1px solid var(--jy-border);
+    border-inline-start: 4px solid var(--accent);
+    border-radius: 0.25rem;
+    background: var(--jy-surface-raised);
+  }
+  .facts dt {
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--jy-text-muted);
+  }
+  .facts dd {
+    font-weight: 600;
+  }
+  .cabinet {
+    display: grid;
+    gap: var(--jy-space-s);
+    padding: var(--jy-space-m);
+    border: 3px solid color-mix(in oklch, var(--accent) 60%, transparent);
+    box-shadow: 0 0 0 6px var(--jy-arcade-ink);
+    background:
+      radial-gradient(ellipse at 100% 0%, color-mix(in oklch, var(--accent) 22%, transparent), transparent 60%),
+      var(--jy-surface);
+  }
+  .cabinet > h2 {
+    margin: 0;
+    font-size: var(--jy-step-0);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--jy-arcade-yellow);
+  }
+  /* The PWA's "Make available offline" control fills in after a service worker is active;
+     its box is reserved so nothing shifts when it appears. */
+  jy-offline-toggle {
+    display: block;
+    min-block-size: var(--jy-target-min);
+  }
+  @container (inline-size >= 44rem) {
+    .game-page > section:not(.cabinet) {
+      display: grid;
+      grid-template-columns: 14rem minmax(0, 1fr);
+      gap: 0 var(--jy-space-l);
+      align-items: start;
+    }
+    .game-page > section:not(.cabinet) > h2 {
+      grid-row: span 3;
+      font-size: var(--jy-step-1);
+    }
+  }
+  .rules {
+    display: grid;
+    gap: var(--jy-space-2xs);
+    padding-inline-start: 1.5em;
+  }
+  .rules li::marker {
+    font-family: var(--jy-font-mono);
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .note {
+    margin-block-end: var(--jy-space-2xs);
+    color: var(--jy-text-muted);
+    font-style: italic;
+  }
+  .more ul {
+    display: grid;
+    gap: var(--jy-space-2xs);
+    padding-inline-start: 1.25em;
+  }
+  .more .count {
+    color: var(--jy-text-muted);
+  }
+
+  /* --- Not found ---------------------------------------------------------------------- */
+  .not-found {
+    display: grid;
+    gap: var(--jy-space-s);
+    justify-items: start;
+    padding-block: var(--jy-space-l);
+  }
+  .not-found .kicker {
+    font-size: var(--jy-step-1);
+    color: var(--jy-arcade-magenta);
+  }
+
+  /* --- Advertise with us, the creative policy and the sent page ------------------------- */
+  .advertise-page {
+    display: grid;
+    gap: var(--jy-space-l);
+    container-type: inline-size;
+  }
+  .advertise-page > .page-head,
+  .advertise-page > .crumbs {
+    margin-block: 0;
+  }
+  .advertise-section {
+    display: grid;
+    gap: var(--jy-space-s);
+    align-content: start;
+  }
+  .advertise-section > h2 {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+  }
+  .advertise-section > h2::before {
+    content: '';
+    flex: none;
+    inline-size: 0.55em;
+    block-size: 0.7em;
+    background: var(--jy-arcade-magenta);
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+  }
+  .points,
+  .steps {
+    display: grid;
+    gap: var(--jy-space-2xs);
+    max-inline-size: 70ch;
+    padding-inline-start: 1.25em;
+  }
+  .steps li::marker {
+    font-family: var(--jy-font-mono);
+    font-weight: 700;
+    color: var(--jy-arcade-magenta);
+  }
+
+  /* The slot gallery: one card per slot, its shape drawn to a common scale. */
+  .slot-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+    gap: var(--jy-space-s);
+    padding: 0;
+    list-style: none;
+  }
+  .slot-card {
+    display: grid;
+    gap: var(--jy-space-2xs);
+    align-content: start;
+    block-size: 100%;
+    padding: var(--jy-space-s);
+    border: 2px solid var(--jy-border);
+    border-block-start: 6px solid var(--jy-arcade-cyan);
+    border-radius: var(--jy-radius-s);
+    background: var(--jy-surface-raised);
+  }
+  .slot-card h3 {
+    font-size: var(--jy-step-1);
+  }
+  .slot-preview {
+    display: grid;
+    place-items: center;
+    min-block-size: 9rem;
+    padding: var(--jy-space-2xs);
+    border-radius: var(--jy-radius-s);
+    background: color-mix(in oklch, var(--jy-text) 5%, transparent);
+  }
+  .slot-shape {
+    max-inline-size: 100%;
+  }
+  .slot-shape rect {
+    fill: color-mix(in oklch, var(--jy-arcade-cyan) 25%, transparent);
+    stroke: var(--jy-arcade-cyan);
+    stroke-width: 2;
+    stroke-dasharray: 6 4;
+  }
+  /* Terms share one column, as wide as the longest term. */
+  .slot-facts {
+    display: grid;
+    grid-template-columns: max-content minmax(0, 1fr);
+    gap: var(--jy-space-3xs) var(--jy-space-s);
+    font-size: var(--jy-step--1);
+  }
+  .slot-facts > div {
+    display: grid;
+    grid-column: span 2;
+    grid-template-columns: subgrid;
+  }
+  .slot-facts dt,
+  .policy-list dt {
+    font-weight: 700;
+  }
+
+  /* The policy page: lists of products, and the spec table. */
+  .policy-list {
+    display: grid;
+    gap: var(--jy-space-2xs);
+    max-inline-size: 70ch;
+  }
+  .policy-list > div {
+    padding-inline-start: var(--jy-space-xs);
+    border-inline-start: 4px solid var(--jy-border);
+  }
+  .table-scroll {
+    max-inline-size: 100%;
+    overflow-x: auto;
+  }
+  .table-scroll:focus-visible {
+    outline: 3px solid var(--jy-focus-ring);
+    outline-offset: 3px;
+  }
+  .spec-table {
+    border-collapse: collapse;
+    font-size: var(--jy-step--1);
+  }
+  .spec-table caption {
+    caption-side: bottom;
+    padding-block: var(--jy-space-2xs);
+    color: var(--jy-text-muted);
+    text-align: start;
+  }
+  .spec-table th,
+  .spec-table td {
+    padding: 0.5em 0.75em;
+    border-block-end: 1px solid var(--jy-border);
+    text-align: start;
+  }
+  .spec-table thead th {
+    border-block-end-width: 2px;
+  }
+
+  /* The contact form. */
+  .contact-form {
+    display: grid;
+    gap: var(--jy-space-s);
+    max-inline-size: 40rem;
+  }
+  .field {
+    display: grid;
+    gap: var(--jy-space-3xs);
+    min-inline-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+  .field > label,
+  .field > legend {
+    padding: 0;
+    font-weight: 700;
+  }
+  .optional,
+  .hint {
+    font-weight: 400;
+    color: var(--jy-text-muted);
+  }
+  .contact-form input:not([type='checkbox']),
+  .contact-form textarea {
+    inline-size: 100%;
+    min-block-size: var(--jy-target-min);
+    padding: 0.5em 0.65em;
+    border: 2px solid color-mix(in oklch, var(--jy-text) 45%, var(--jy-surface));
+    border-radius: var(--jy-radius-s);
+    background: var(--jy-surface-raised);
+    color: var(--jy-text);
+  }
+  .contact-form textarea {
+    resize: vertical;
+    field-sizing: content;
+    min-block-size: 8lh;
+  }
+  .contact-form input[type='date'] {
+    inline-size: auto;
+    max-inline-size: 100%;
+  }
+  .contact-form :is(input, textarea):focus-visible {
+    outline: 3px solid var(--jy-focus-ring);
+    outline-offset: 2px;
+  }
+  .contact-form :is(input, textarea)[aria-invalid='true'],
+  .contact-form :is(input, textarea):user-invalid {
+    border-color: var(--jy-danger);
+  }
+  .field > legend + .hint,
+  .field > legend + .field-error {
+    margin-block-start: var(--jy-space-3xs);
+  }
+  .choices {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+    gap: 0 var(--jy-space-s);
+    padding: 0;
+    list-style: none;
+  }
+  .choice {
+    display: flex;
+    align-items: center;
+    gap: var(--jy-space-2xs);
+    min-block-size: var(--jy-target-min);
+  }
+  .choice input {
+    flex: none;
+    inline-size: 1.25rem;
+    block-size: 1.25rem;
+    accent-color: var(--jy-arcade-magenta);
+  }
+  .date-pair {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--jy-space-s);
+    margin-block-start: var(--jy-space-2xs);
+  }
+  .field-error {
+    font-weight: 700;
+    color: var(--jy-danger);
+  }
+  .form-errors {
+    display: grid;
+    gap: var(--jy-space-2xs);
+    padding: var(--jy-space-s);
+    border: 3px solid var(--jy-danger);
+    border-radius: var(--jy-radius-s);
+    background: var(--jy-surface-raised);
+  }
+  .form-errors h3 {
+    font-size: var(--jy-step-1);
+  }
+  .form-errors ul {
+    display: grid;
+    gap: var(--jy-space-3xs);
+    padding-inline-start: 1.25em;
+  }
+  .form-errors a {
+    color: var(--jy-danger);
+    font-weight: 700;
+  }
+  /* The honeypot: people never see it, so they never fill it. */
+  .trap {
+    display: none;
+  }
+  .form-note {
+    color: var(--jy-text-muted);
+    font-size: var(--jy-step--1);
+  }
+  /* The arcade button, in the bright yellow of the dark screens in both schemes: the light
+     scheme's darker yellow is too dark for the ink text. */
+  .contact-form .cta,
+  .leaving .cta {
+    border: 0;
+    background: oklch(88% 0.16 95);
+    box-shadow: 0 0.3em 0 oklch(62% 0.13 85);
+    cursor: pointer;
+  }
+  .contact-form .cta:hover,
+  .leaving .cta:hover {
+    background: oklch(93% 0.11 95);
+  }
+  .contact-form .cta:focus-visible,
+  .leaving .cta:focus-visible {
+    outline: 3px solid var(--jy-focus-ring);
+    outline-offset: 3px;
+  }
+
+  .sent {
+    display: grid;
+    gap: var(--jy-space-s);
+    justify-items: start;
+    padding-block: var(--jy-space-l);
+  }
+  .sent-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 var(--jy-space-m);
+    padding: 0;
+    list-style: none;
+  }
+  .sent-links a {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: var(--jy-target-min);
+  }
+
+  /* --- You're leaving Joystyk ---------------------------------------------------------- */
+  .leaving {
+    display: grid;
+    gap: var(--jy-space-s);
+    justify-items: start;
+    padding-block: var(--jy-space-l);
+  }
+  /* A long domain breaks rather than pushing the page sideways on a phone. */
+  .leaving-domain {
+    overflow-wrap: anywhere;
+  }
+  .leaving-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--jy-space-s) var(--jy-space-m);
+    padding: 0;
+    list-style: none;
+  }
+  .leaving-links .cta {
+    overflow-wrap: anywhere;
+  }
+  .leaving-links .back {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: var(--jy-target-min);
+    font-weight: 700;
+  }
+  .leaving-links .back:focus-visible {
+    outline: 3px solid var(--jy-focus-ring);
+    outline-offset: 3px;
+  }
+
+  /* --- Loading line ------------------------------------------------------------------- */
+  .loading {
+    padding-block: var(--jy-space-l);
+    color: var(--jy-text-muted);
+  }
+
+  @media (forced-colors: active) {
+    .game-card,
+    .facts > div,
+    .badges li,
+    .slot-card {
+      border-color: CanvasText;
+    }
+    .slot-shape rect {
+      fill: Canvas;
+      stroke: CanvasText;
+    }
+    .wordmark {
+      color: LinkText;
+      background: none;
+    }
+  }
+}
+@layer components {
+  /* Sponsorships disappear throughout play, including its pause menu. */
+  .game-page:has(jy-launcher:state(playing)) > ad-slot {
+    display: none;
+  }
+}
+
+@layer components {
+  jy-offline-availability:not([hidden]) {
+    display: block;
+    font-size: var(--jy-font-small, .875rem);
+    color: var(--jy-text-muted);
+  }
+  a[aria-disabled="true"] { cursor: not-allowed; }
+}

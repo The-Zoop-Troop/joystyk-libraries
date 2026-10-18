@@ -1,0 +1,83 @@
+{
+  "name": "@joystyk/launcher",
+  "version": "0.1.0",
+  "description": "The frame around a game: mode picker, local sessions, mounting, the platform overlay, the hand-off and results screens.",
+  "private": false,
+  "type": "module",
+  "sideEffects": [
+    "**/index.[jt]s",
+    "**/launcher.[jt]s",
+    "**/report-problem.[jt]s",
+    "**/browser/stage.[jt]s"
+  ],
+  "exports": {
+    ".": "./src/index.ts",
+    "./browser": "./src/browser/index.ts",
+    "./fixture": "./src/fixture/index.ts",
+    "./report": "./src/report.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "node ../../scripts/build-package.ts",
+    "prepack": "node ../../scripts/build-package.ts"
+  },
+  "dependencies": {
+    "@gyral/core": "catalog:",
+    "@joystyk/contracts": "workspace:*",
+    "@joystyk/daily": "workspace:*",
+    "@joystyk/identity": "workspace:*",
+    "@joystyk/kit": "workspace:*",
+    "@joystyk/session": "workspace:*",
+    "@joystyk/storage": "workspace:*",
+    "@joystyk/ui": "workspace:*"
+  },
+  "devDependencies": {
+    "@gyral/testing": "catalog:",
+    "@joystyk/rooms": "workspace:*",
+    "parse5": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vitest": "catalog:"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "./browser": {
+        "types": "./dist/browser/index.d.ts",
+        "default": "./dist/browser/index.js"
+      },
+      "./fixture": {
+        "types": "./dist/fixture/index.d.ts",
+        "default": "./dist/fixture/index.js"
+      },
+      "./report": {
+        "types": "./dist/report.d.ts",
+        "default": "./dist/report.js"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "NOTICE",
+    "CHANGELOG.md"
+  ],
+  "engines": {
+    "node": ">=24.15.0"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/The-Zoop-Troop/joystyk-libraries.git",
+    "directory": "packages/launcher"
+  },
+  "homepage": "https://github.com/The-Zoop-Troop/joystyk-libraries/tree/main/packages/launcher#readme",
+  "bugs": {
+    "url": "https://github.com/The-Zoop-Troop/joystyk-libraries/issues"
+  }
+}

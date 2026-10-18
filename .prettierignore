@@ -1,0 +1,33 @@
+# Vendored sources and generated/build outputs retain their exact bytes.
+.agents/
+.claude/
+.beads/
+vendor/
+**/node_modules/
+**/dist/
+**/.gyral/
+**/coverage/
+**/__screenshots__/
+scripts/__fixtures__/
+packages/contracts/src/standard-schema.ts
+
+# Generated game data and fixed numeric tables: edit the owning generator instead.
+games/backgammon/src/engine/bearoff-table.ts
+games/clue-teams/src/engine/words-data.ts
+games/containment/src/engine/directions.ts
+games/daily-word/src/engine/words/answers.ts
+games/daily-word/src/engine/words/guesses.ts
+games/daily-word/src/engine/words/practice.ts
+games/equation/src/engine/answers.ts
+games/four-groups/src/content/bank-v1.ts
+games/hangman/src/engine/blocklist.ts
+games/honeycomb/src/content/daily-v1.ts
+games/honeycomb/src/engine/practice-v1.ts
+games/map-guess/src/engine/pool.ts
+games/map-guess/src/ui/world.ts
+games/mini-golf/src/jobs/directions.ts
+games/queens/src/engine/core-seeds-v1.ts
+games/rock-field/src/engine/trig.ts
+games/word-hunt/src/engine/dice.ts
+games/word-hunt/src/engine/dictionary.ts
+games/word-ladder/src/engine/words-v1.ts

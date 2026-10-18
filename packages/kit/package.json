@@ -1,0 +1,88 @@
+{
+  "name": "@joystyk/kit",
+  "version": "0.1.0",
+  "description": "Pure, deterministic game building blocks: a seeded RNG, cards and decks, dice, grids, turn order and daily seeds.",
+  "private": false,
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": "./src/index.ts",
+    "./rng": "./src/rng.ts",
+    "./cards": "./src/cards/index.ts",
+    "./dice": "./src/dice.ts",
+    "./grid": "./src/grid.ts",
+    "./daily": "./src/daily.ts",
+    "./turn": "./src/turn.ts",
+    "./tiles": "./src/tiles/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "node ../../scripts/build-package.ts",
+    "prepack": "node ../../scripts/build-package.ts"
+  },
+  "dependencies": {
+    "@joystyk/contracts": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vitest": "catalog:"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "./rng": {
+        "types": "./dist/rng.d.ts",
+        "default": "./dist/rng.js"
+      },
+      "./cards": {
+        "types": "./dist/cards/index.d.ts",
+        "default": "./dist/cards/index.js"
+      },
+      "./dice": {
+        "types": "./dist/dice.d.ts",
+        "default": "./dist/dice.js"
+      },
+      "./grid": {
+        "types": "./dist/grid.d.ts",
+        "default": "./dist/grid.js"
+      },
+      "./daily": {
+        "types": "./dist/daily.d.ts",
+        "default": "./dist/daily.js"
+      },
+      "./turn": {
+        "types": "./dist/turn.d.ts",
+        "default": "./dist/turn.js"
+      },
+      "./tiles": {
+        "types": "./dist/tiles/index.d.ts",
+        "default": "./dist/tiles/index.js"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "NOTICE",
+    "CHANGELOG.md"
+  ],
+  "engines": {
+    "node": ">=24.15.0"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/The-Zoop-Troop/joystyk-libraries.git",
+    "directory": "packages/kit"
+  },
+  "homepage": "https://github.com/The-Zoop-Troop/joystyk-libraries/tree/main/packages/kit#readme",
+  "bugs": {
+    "url": "https://github.com/The-Zoop-Troop/joystyk-libraries/issues"
+  }
+}

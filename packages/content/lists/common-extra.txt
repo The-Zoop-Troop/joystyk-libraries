@@ -1,0 +1,13 @@
+# Everyday words that SCOWL 2020 leaves out of sizes 10 to 50 but a young reader knows today,
+# mostly from technology. They count as common words (vocabulary.ts) alongside
+# scowl-common.txt. Hand-maintained and reviewed; original to this repository. Keep it short:
+# add a word only when it is plainly everyday, never to rescue a generated item.
+app
+coder
+coders
+gamers
+livestream
+uploads
+uploaded
+uploading
+

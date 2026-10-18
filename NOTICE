@@ -1,0 +1,36 @@
+Third-party material in the Joystyk library release
+
+This notice preserves third-party attribution. Original Joystyk code in the 17
+platform libraries under packages/ uses the MIT license in packages/LICENSE.
+That choice does not license the private applications, games or other repository
+material, and does not replace the third-party terms below.
+
+@joystyk/contracts
+------------------
+Standard Schema v1 type definitions from @standard-schema/spec 1.1.0:
+https://github.com/standard-schema/standard-schema
+https://standardschema.dev
+Copyright (c) 2024 Colin McDonnell. MIT License.
+The complete license and source/change notes accompany the distributed
+dist/standard-schema.d.ts definitions. Changes: individually exported declarations
+and formatting; the declarations themselves are unchanged.
+
+@joystyk/identity and @joystyk/content
+-----------------------------------
+Word blocklists derived from List of Dirty, Naughty, Obscene, and Otherwise Bad
+Words, copyright Shutterstock, Inc. and contributors:
+https://github.com/LDNOOBW/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words
+Licensed under Creative Commons Attribution 4.0 International:
+https://creativecommons.org/licenses/by/4.0/
+Identity uses the English list at commit
+5faf2ba42d7b1c0977169ec3611df25a3c08eb13. Changes include reducing or dropping
+phrases, dropping words with everyday meanings, substituting stems for inflections
+and adding entries. Identity's README and content's lists/blocklist.txt retain
+their source-specific provenance and changes.
+
+@joystyk/content
+---------------
+SCOWL-derived common, vocabulary and ranked word lists use SCOWL 2020.12.07.
+Their complete source licenses and attribution accompany the package in
+lists/SCOWL-COPYRIGHT. Word-list transformations and build provenance are described
+in the package README. Preserve that copyright file when redistributing the lists.

@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    // The core is headless: it runs in Node for SSR and unit tests, so it may not name a DOM
+    // type. A core file that does fails here; move that code to src/browser/.
+    "lib": ["ES2023"],
+    "types": []
+  },
+  "include": ["src"],
+  "exclude": ["src/browser", "src/**/*.browser.test.ts"]
+}

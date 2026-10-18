@@ -1,0 +1,9 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    // The kit runs wherever engines run (browser, worker, server): no DOM, no Node.
+    "lib": ["ES2023"],
+    "types": []
+  },
+  "include": ["src", "*.config.ts"]
+}

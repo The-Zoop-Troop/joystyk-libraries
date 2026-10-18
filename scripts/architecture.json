@@ -1,0 +1,233 @@
+{
+  "$comment": [
+    "The allowed dependency edges, read by scripts/check-architecture.ts. ARCHITECTURE.md's",
+    "dependency table is generated from this file: after editing it, run",
+    "`node scripts/check-architecture.ts --write-docs`. An import entry is a package folder",
+    "name (any exported subpath may be imported) or folder/subpath (only that subpath)."
+  ],
+  "scope": "@joystyk",
+  "packages": {
+    "contracts": {
+      "imports": [],
+      "pure": true
+    },
+    "kit": {
+      "imports": [
+        "contracts"
+      ],
+      "pure": true
+    },
+    "testing": {
+      "imports": [
+        "contracts",
+        "kit",
+        "session",
+        "rooms"
+      ]
+    },
+    "session": {
+      "imports": [
+        "contracts",
+        "kit",
+        "rooms/protocol"
+      ]
+    },
+    "rooms": {
+      "imports": [
+        "contracts",
+        "kit",
+        "identity/names",
+        "ops"
+      ]
+    },
+    "storage": {
+      "imports": [
+        "contracts"
+      ]
+    },
+    "identity": {
+      "imports": [
+        "contracts",
+        "storage"
+      ]
+    },
+    "daily": {
+      "imports": [
+        "contracts",
+        "kit",
+        "storage"
+      ]
+    },
+    "ops": {
+      "imports": []
+    },
+    "content": {
+      "imports": [
+        "contracts",
+        "kit",
+        "daily"
+      ]
+    },
+    "ui": {
+      "imports": []
+    },
+    "cards-ui": {
+      "imports": [
+        "contracts",
+        "kit",
+        "ui/tokens.css"
+      ]
+    },
+    "arcade": {
+      "imports": [
+        "contracts",
+        "kit",
+        "session"
+      ]
+    },
+    "render3d": {
+      "imports": [
+        "contracts"
+      ],
+      "heavy": true
+    },
+    "launcher": {
+      "imports": [
+        "contracts",
+        "kit",
+        "session",
+        "storage",
+        "identity",
+        "ui",
+        "daily"
+      ]
+    },
+    "catalog": {
+      "imports": [
+        "contracts",
+        "launcher",
+        "ui"
+      ]
+    },
+    "pwa": {
+      "imports": [
+        "contracts",
+        "storage/browser",
+        "daily/browser"
+      ]
+    }
+  },
+  "apps": {
+    "packages": [],
+    "games": false
+  },
+  "games": {
+    "layers": {}
+  },
+  "heavyLibraries": [
+    "three",
+    "three-stdlib",
+    "@dimforge/rapier2d",
+    "@dimforge/rapier2d-compat",
+    "@dimforge/rapier3d",
+    "@dimforge/rapier3d-compat",
+    "@dimforge/rapier3d-deterministic-compat",
+    "@babylonjs/core",
+    "babylonjs",
+    "cannon-es"
+  ],
+  "resourceReads": {
+    "packages/content/src/filter.ts": {
+      "paths": [
+        "packages/content/lists"
+      ],
+      "reason": "The private reader accepts only the two literal all-ages list names; the server build embeds their text."
+    },
+    "packages/content/src/vocabulary.ts": {
+      "paths": [
+        "packages/content/lists"
+      ],
+      "reason": "The private reader accepts only the three pinned vocabulary file names; the server build embeds their text."
+    }
+  },
+  "dynamicImports": {},
+  "purity": {
+    "clock": [
+      "performance",
+      "setTimeout",
+      "setInterval",
+      "setImmediate",
+      "clearTimeout",
+      "clearInterval",
+      "clearImmediate",
+      "requestAnimationFrame",
+      "cancelAnimationFrame",
+      "requestIdleCallback",
+      "queueMicrotask"
+    ],
+    "randomness": [
+      "crypto"
+    ],
+    "dom": [
+      "window",
+      "document",
+      "navigator",
+      "location",
+      "history",
+      "globalThis",
+      "self",
+      "customElements",
+      "HTMLElement",
+      "Element",
+      "Node",
+      "Image",
+      "Audio",
+      "AudioContext",
+      "alert",
+      "confirm",
+      "prompt",
+      "matchMedia",
+      "getComputedStyle",
+      "Worker",
+      "MessageChannel",
+      "BroadcastChannel",
+      "process"
+    ],
+    "io": [
+      "fetch",
+      "XMLHttpRequest",
+      "WebSocket",
+      "EventSource",
+      "RTCPeerConnection",
+      "localStorage",
+      "sessionStorage",
+      "indexedDB",
+      "caches"
+    ],
+    "mathAllowed": [
+      "abs",
+      "ceil",
+      "floor",
+      "round",
+      "sqrt",
+      "min",
+      "max",
+      "trunc",
+      "sign",
+      "imul",
+      "clz32",
+      "fround",
+      "PI",
+      "E",
+      "LN2",
+      "LN10",
+      "LOG2E",
+      "LOG10E",
+      "SQRT1_2",
+      "SQRT2"
+    ],
+    "dateAllowed": [
+      "UTC"
+    ]
+  }
+}

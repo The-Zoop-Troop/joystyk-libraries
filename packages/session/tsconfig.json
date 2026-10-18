@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    // The core is headless: no DOM and no Node. Time, visibility, storage, frames and jobs
+    // arrive through ports, so this config proves the core never reaches for a global.
+    "lib": ["ES2023"],
+    "types": []
+  },
+  "include": ["src", "*.config.ts"],
+  "exclude": ["src/browser"]
+}

@@ -1,0 +1,85 @@
+// `@joystyk/kit/cards`: playing cards for every card game on the platform.
+
+export {
+  ACE,
+  JACK,
+  JOKER,
+  KING,
+  QUEEN,
+  RANKS,
+  SUITS,
+  compareCards,
+  face,
+  isDescendingAlternating,
+  isDescendingSameSuit,
+  isJoker,
+  isRank,
+  isRed,
+  isSuit,
+  isSuited,
+  nextRank,
+  previousRank,
+  rankValue,
+  sameColor,
+  sameFace,
+  sortHand,
+  suitColor,
+  trailingRunLength,
+  type Card,
+  type CardId,
+  type Color,
+  type Face,
+  type JokerFace,
+  type Rank,
+  type SortOptions,
+  type Suit,
+  type SuitedCard,
+  type SuitedFace,
+} from './card.ts';
+export {
+  SUIT_GLYPHS,
+  cardName,
+  cardShort,
+  rankName,
+  rankShort,
+  suitName,
+  suitPluralName,
+  type Locale,
+} from './names.ts';
+export { repeatDeck, standardDeck, type DeckOptions } from './deck.ts';
+export {
+  HIDDEN_CARD,
+  ID_ALPHABET,
+  ID_LENGTH,
+  assignIds,
+  hiddenCards,
+  isHiddenCard,
+  isOpaqueId,
+  newCardId,
+  perturbHidden,
+  redact,
+  withStableIds,
+  type HiddenCard,
+} from './ids.ts';
+export { dealAll, dealRoundRobin, draw, turnUp } from './deal.ts';
+export { isAdjacent, pyramidValue, makesThirteen, isFree, triangularCovers } from './solitaire.ts';
+export { isLegalPlay, ledSuit, legalPlays, trickWinner, type Play, type PlayRules, type Trick } from './tricks.ts';
+export { MAX_SAMPLE_SEATS, canSampleHands, inferVoids, sampleHands, type SampleSpec } from './sample.ts';
+export {
+  MAX_MELD_HAND,
+  bestArrangement,
+  bestArrangements,
+  bestLayoffs,
+  canLayOff,
+  isRun,
+  isSet,
+  meldKind,
+  takeGroups,
+  type Arrangement,
+  type Defense,
+  type Layoff,
+  type Meld,
+  type MeldKind,
+  type MeldOptions,
+} from './melds.ts';
+export { CRAZY_EIGHTS_PENALTIES, DEADWOOD_VALUES, crazyEightsPenalty, deadwoodValue, heartsPoints } from './points.ts';

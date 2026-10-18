@@ -1,0 +1,84 @@
+{
+  "name": "@joystyk/ui",
+  "version": "0.1.0",
+  "description": "Joystyk design tokens, frame components, and <ad-slot> with the billboard slot registry and its wire format, built with Gyral.",
+  "private": false,
+  "type": "module",
+  "sideEffects": [
+    "**/index.[jt]s",
+    "**/button.[jt]s",
+    "**/ad-slot.[jt]s",
+    "**/tokens.css"
+  ],
+  "exports": {
+    ".": "./src/index.ts",
+    "./button": "./src/button.ts",
+    "./ad-slot": "./src/ad-slot.ts",
+    "./ad-wire": "./src/ad-wire.ts",
+    "./slots": "./src/slots.ts",
+    "./tokens.css": "./src/tokens.css"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "node ../../scripts/build-package.ts",
+    "prepack": "node ../../scripts/build-package.ts"
+  },
+  "dependencies": {
+    "@gyral/core": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@gyral/testing": "catalog:",
+    "axe-core": "catalog:",
+    "parse5": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vitest": "catalog:"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "./button": {
+        "types": "./dist/button.d.ts",
+        "default": "./dist/button.js"
+      },
+      "./ad-slot": {
+        "types": "./dist/ad-slot.d.ts",
+        "default": "./dist/ad-slot.js"
+      },
+      "./ad-wire": {
+        "types": "./dist/ad-wire.d.ts",
+        "default": "./dist/ad-wire.js"
+      },
+      "./slots": {
+        "types": "./dist/slots.d.ts",
+        "default": "./dist/slots.js"
+      },
+      "./tokens.css": "./dist/tokens.css"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "NOTICE",
+    "CHANGELOG.md"
+  ],
+  "engines": {
+    "node": ">=24.15.0"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/The-Zoop-Troop/joystyk-libraries.git",
+    "directory": "packages/ui"
+  },
+  "homepage": "https://github.com/The-Zoop-Troop/joystyk-libraries/tree/main/packages/ui#readme",
+  "bugs": {
+    "url": "https://github.com/The-Zoop-Troop/joystyk-libraries/issues"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    // Test code runs in Node and in the browser project, so it names neither DOM nor Node types.
+    "lib": ["ES2023"],
+    "types": []
+  },
+  "include": ["src", "*.config.ts"]
+}

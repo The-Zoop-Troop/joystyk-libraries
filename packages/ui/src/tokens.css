@@ -1,0 +1,98 @@
+/*
+ * Joystyk design tokens: the frame's colors, type, space, shape and motion.
+ *
+ * Load this once per page, before other styles. Components inside shadow roots read the
+ * tokens through inheritance. Every color is oklch. `color-scheme: light dark` makes each
+ * `light-dark()` pair follow the visitor's `prefers-color-scheme`; set `color-scheme` to
+ * `light` or `dark` on an element to pin a theme for that subtree.
+ *
+ * Games may theme their own canvas, but the frame uses only these tokens.
+ */
+@layer reset, tokens, base, layout, components, utilities;
+
+@layer tokens {
+  :root {
+    color-scheme: light dark;
+
+    /* Color: one brand hue, everything else derived from it. */
+    --jy-hue: 285;
+    --jy-surface: light-dark(oklch(98.5% 0.006 var(--jy-hue)), oklch(17% 0.02 var(--jy-hue)));
+    --jy-surface-raised: light-dark(oklch(100% 0 0), oklch(22% 0.025 var(--jy-hue)));
+    --jy-text: light-dark(oklch(22% 0.03 var(--jy-hue)), oklch(94% 0.012 var(--jy-hue)));
+    --jy-text-muted: color-mix(in oklch, var(--jy-text) 68%, var(--jy-surface));
+    --jy-border: color-mix(in oklch, var(--jy-text) 16%, var(--jy-surface));
+    --jy-accent: light-dark(oklch(50% 0.2 var(--jy-hue)), oklch(76% 0.13 var(--jy-hue)));
+    --jy-accent-hover: light-dark(oklch(44% 0.2 var(--jy-hue)), oklch(82% 0.11 var(--jy-hue)));
+    --jy-on-accent: light-dark(oklch(99% 0.005 var(--jy-hue)), oklch(18% 0.03 var(--jy-hue)));
+    --jy-focus-ring: light-dark(oklch(55% 0.22 var(--jy-hue)), oklch(80% 0.15 var(--jy-hue)));
+    --jy-danger: light-dark(oklch(50% 0.19 25), oklch(75% 0.14 25));
+    --jy-success: light-dark(oklch(50% 0.13 150), oklch(78% 0.13 150));
+
+    /* Type: a system stack and a fluid scale. */
+    --jy-font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    --jy-font-mono: ui-monospace, 'SF Mono', 'Cascadia Code', Menlo, monospace;
+    --jy-step--1: clamp(0.875rem, 0.85rem + 0.1vw, 0.94rem);
+    --jy-step-0: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+    --jy-step-1: clamp(1.25rem, 1.1rem + 0.7vw, 1.62rem);
+    --jy-step-2: clamp(1.56rem, 1.3rem + 1.3vw, 2.33rem);
+    --jy-step-3: clamp(1.95rem, 1.5rem + 2.2vw, 3.35rem);
+
+    /* Space: a fluid scale for gaps and padding. */
+    --jy-space-3xs: 0.25rem;
+    --jy-space-2xs: 0.5rem;
+    --jy-space-xs: 0.75rem;
+    --jy-space-s: clamp(1rem, 0.9rem + 0.4vw, 1.25rem);
+    --jy-space-m: clamp(1.5rem, 1.3rem + 0.8vw, 2rem);
+    --jy-space-l: clamp(2rem, 1.6rem + 1.6vw, 3rem);
+
+    /* Shape and depth. */
+    --jy-radius-s: 0.5rem;
+    --jy-radius-m: 0.75rem;
+    --jy-radius-pill: 999px;
+    --jy-shadow: 0 1px 2px oklch(20% 0.03 var(--jy-hue) / 0.08),
+      0 8px 24px oklch(20% 0.03 var(--jy-hue) / 0.1);
+
+    /* Touch targets meet WCAG 2.5.5 (44 by 44 CSS pixels). */
+    --jy-target-min: 2.75rem;
+
+    /* Motion: short and purposeful. Decorative motion stops under reduced motion. */
+    --jy-duration-fast: 120ms;
+    --jy-duration: 200ms;
+    --jy-ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :root {
+      --jy-duration-fast: 0ms;
+      --jy-duration: 0ms;
+    }
+  }
+}
+
+@layer base {
+  body {
+    background: var(--jy-surface);
+    color: var(--jy-text);
+    font-family: var(--jy-font-sans);
+    font-size: var(--jy-step-0);
+    line-height: 1.5;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--jy-focus-ring);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  /*
+   * A page the service worker answered from its cache, because the network failed, carries
+   * `data-offline` on <html> (@joystyk/pwa, offline-mark.ts). Offline there are no ads, so
+   * its ad slots take no space from the first paint, before <ad-slot> has hydrated, and the
+   * page never shifts when they collapse. A slot comes back once it hears the browser is
+   * online (its `online` state), as on any other page.
+   */
+  :root[data-offline] ad-slot:not(:state(online)) {
+    display: none;
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@4.0.1/schema.json",
+  "changelog": "@changesets/cli/changelog",
+  "commit": false,
+  "fixed": [
+    [
+      "@joystyk/contracts",
+      "@joystyk/kit",
+      "@joystyk/storage",
+      "@joystyk/identity",
+      "@joystyk/rooms",
+      "@joystyk/session",
+      "@joystyk/daily",
+      "@joystyk/testing",
+      "@joystyk/ui",
+      "@joystyk/cards-ui",
+      "@joystyk/launcher",
+      "@joystyk/catalog",
+      "@joystyk/pwa",
+      "@joystyk/content",
+      "@joystyk/ops",
+      "@joystyk/arcade",
+      "@joystyk/render3d"
+    ]
+  ],
+  "linked": [],
+  "access": "public",
+  "baseBranch": "main",
+  "updateInternalDependencies": "patch",
+  "ignore": [],
+  "privatePackages": {
+    "version": false,
+    "tag": false
+  }
+}

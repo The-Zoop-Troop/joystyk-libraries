@@ -1,0 +1,9 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    // The service worker: worker globals only, no DOM. It shares the core modules.
+    "lib": ["ES2023", "WebWorker"],
+    "types": []
+  },
+  "include": ["src/sw", "src/names.ts", "src/routing.ts", "src/control.ts"]
+}
