@@ -1,0 +1,17 @@
+node_modules/
+dist/
+.gyral/
+coverage/
+__screenshots__/
+*.tsbuildinfo
+*.log
+.env
+.env.*
+packages/*/LICENSE
+packages/*/NOTICE
+
+# Beads / Dolt files (added by bd init)
+.dolt/
+*.db
+.beads-credential-key
+.beads/proxieddb/
