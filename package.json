@@ -24,7 +24,8 @@
     "check:release": "node scripts/verify-install.ts --release",
     "changeset": "changeset",
     "version:packages": "changeset version",
-    "release:stage": "node scripts/stage-release.ts"
+    "release:stage": "node scripts/stage-release.ts",
+    "release:bootstrap": "node scripts/publish-placeholders.ts"
   },
   "devDependencies": {
     "@gyral/core": "catalog:",

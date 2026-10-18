@@ -1,6 +1,6 @@
 {
   "name": "@joystyk/kit",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Pure, deterministic game building blocks: a seeded RNG, cards and decks, dice, grids, turn order and daily seeds.",
   "private": false,
   "type": "module",
@@ -78,11 +78,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/The-Zoop-Troop/joystyk-libraries.git",
+    "url": "git+https://github.com/joystyk-games/game-libraries.git",
     "directory": "packages/kit"
   },
-  "homepage": "https://github.com/The-Zoop-Troop/joystyk-libraries/tree/main/packages/kit#readme",
+  "homepage": "https://github.com/joystyk-games/game-libraries/tree/main/packages/kit#readme",
   "bugs": {
-    "url": "https://github.com/The-Zoop-Troop/joystyk-libraries/issues"
+    "url": "https://github.com/joystyk-games/game-libraries/issues"
   }
 }

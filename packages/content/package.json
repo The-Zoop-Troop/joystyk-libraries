@@ -1,6 +1,6 @@
 {
   "name": "@joystyk/content",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "The AI content pipeline (server only): model client, generate, validate, all-ages filter, SQLite records, and publishing daily files in the daily package's format.",
   "private": false,
   "type": "module",
@@ -50,11 +50,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/The-Zoop-Troop/joystyk-libraries.git",
+    "url": "git+https://github.com/joystyk-games/game-libraries.git",
     "directory": "packages/content"
   },
-  "homepage": "https://github.com/The-Zoop-Troop/joystyk-libraries/tree/main/packages/content#readme",
+  "homepage": "https://github.com/joystyk-games/game-libraries/tree/main/packages/content#readme",
   "bugs": {
-    "url": "https://github.com/The-Zoop-Troop/joystyk-libraries/issues"
+    "url": "https://github.com/joystyk-games/game-libraries/issues"
   }
 }

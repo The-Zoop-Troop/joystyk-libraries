@@ -1,6 +1,6 @@
 {
   "name": "@joystyk/catalog",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "The Joystyk catalog: manifest registry, slot registry, routes and the server-rendered index, category and game pages.",
   "private": false,
   "type": "module",
@@ -69,11 +69,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/The-Zoop-Troop/joystyk-libraries.git",
+    "url": "git+https://github.com/joystyk-games/game-libraries.git",
     "directory": "packages/catalog"
   },
-  "homepage": "https://github.com/The-Zoop-Troop/joystyk-libraries/tree/main/packages/catalog#readme",
+  "homepage": "https://github.com/joystyk-games/game-libraries/tree/main/packages/catalog#readme",
   "bugs": {
-    "url": "https://github.com/The-Zoop-Troop/joystyk-libraries/issues"
+    "url": "https://github.com/joystyk-games/game-libraries/issues"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@joystyk/contracts",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Platform contracts: plain TypeScript types and tiny helpers, with zero dependencies.",
   "private": false,
   "type": "module",
@@ -40,11 +40,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/The-Zoop-Troop/joystyk-libraries.git",
+    "url": "git+https://github.com/joystyk-games/game-libraries.git",
     "directory": "packages/contracts"
   },
-  "homepage": "https://github.com/The-Zoop-Troop/joystyk-libraries/tree/main/packages/contracts#readme",
+  "homepage": "https://github.com/joystyk-games/game-libraries/tree/main/packages/contracts#readme",
   "bugs": {
-    "url": "https://github.com/The-Zoop-Troop/joystyk-libraries/issues"
+    "url": "https://github.com/joystyk-games/game-libraries/issues"
   }
 }

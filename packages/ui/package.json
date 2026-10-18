@@ -1,6 +1,6 @@
 {
   "name": "@joystyk/ui",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Joystyk design tokens, frame components, and <ad-slot> with the billboard slot registry and its wire format, built with Gyral.",
   "private": false,
   "type": "module",
@@ -74,11 +74,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/The-Zoop-Troop/joystyk-libraries.git",
+    "url": "git+https://github.com/joystyk-games/game-libraries.git",
     "directory": "packages/ui"
   },
-  "homepage": "https://github.com/The-Zoop-Troop/joystyk-libraries/tree/main/packages/ui#readme",
+  "homepage": "https://github.com/joystyk-games/game-libraries/tree/main/packages/ui#readme",
   "bugs": {
-    "url": "https://github.com/The-Zoop-Troop/joystyk-libraries/issues"
+    "url": "https://github.com/joystyk-games/game-libraries/issues"
   }
 }

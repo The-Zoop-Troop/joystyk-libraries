@@ -1,6 +1,6 @@
 {
   "name": "@joystyk/pwa",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "The Joystyk PWA: the service worker and its cache tiers, offline pinning, update prompts at safe points, the kill switch, and the build step that emits sw.js and the asset manifests.",
   "private": false,
   "type": "module",
@@ -70,11 +70,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/The-Zoop-Troop/joystyk-libraries.git",
+    "url": "git+https://github.com/joystyk-games/game-libraries.git",
     "directory": "packages/pwa"
   },
-  "homepage": "https://github.com/The-Zoop-Troop/joystyk-libraries/tree/main/packages/pwa#readme",
+  "homepage": "https://github.com/joystyk-games/game-libraries/tree/main/packages/pwa#readme",
   "bugs": {
-    "url": "https://github.com/The-Zoop-Troop/joystyk-libraries/issues"
+    "url": "https://github.com/joystyk-games/game-libraries/issues"
   }
 }

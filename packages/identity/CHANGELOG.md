@@ -1,5 +1,14 @@
 # @joystyk/identity
 
+## 0.2.0
+
+### Patch Changes
+
+- Updated dependencies [bb095c7]
+- Updated dependencies [bb095c7]
+  - @joystyk/contracts@0.2.0
+  - @joystyk/storage@0.2.0
+
 ## 0.1.0
 
 ### Minor Changes

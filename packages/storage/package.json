@@ -1,6 +1,6 @@
 {
   "name": "@joystyk/storage",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Versioned, validated player data: saves, stats, streaks and preferences, over IndexedDB or memory.",
   "private": false,
   "type": "module",
@@ -49,11 +49,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/The-Zoop-Troop/joystyk-libraries.git",
+    "url": "git+https://github.com/joystyk-games/game-libraries.git",
     "directory": "packages/storage"
   },
-  "homepage": "https://github.com/The-Zoop-Troop/joystyk-libraries/tree/main/packages/storage#readme",
+  "homepage": "https://github.com/joystyk-games/game-libraries/tree/main/packages/storage#readme",
   "bugs": {
-    "url": "https://github.com/The-Zoop-Troop/joystyk-libraries/issues"
+    "url": "https://github.com/joystyk-games/game-libraries/issues"
   }
 }

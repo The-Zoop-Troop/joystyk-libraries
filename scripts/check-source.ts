@@ -2,6 +2,7 @@ import { existsSync, lstatSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { PACKAGE_NAMES, readManifest } from './release/packages.ts';
+import { RELEASE_REPOSITORY_URL } from './release/identity.ts';
 const root = fileURLToPath(new URL('..', import.meta.url));
 for (const folder of ['apps', 'games', 'deploy', 'vendor'])
   if (existsSync(join(root, folder))) throw new Error('Unapproved source directory: ' + folder);
@@ -11,10 +12,7 @@ for (const name of readdirSync(join(root, 'packages'))) {
 }
 for (const name of PACKAGE_NAMES) {
   const manifest = readManifest(join(root, 'packages', name));
-  if (
-    manifest.license !== 'MIT' ||
-    manifest.repository?.url !== 'git+https://github.com/The-Zoop-Troop/joystyk-libraries.git'
-  )
+  if (manifest.license !== 'MIT' || manifest.repository?.url !== RELEASE_REPOSITORY_URL)
     throw new Error('Review release identity and MIT metadata for ' + name);
 }
 for (const file of [

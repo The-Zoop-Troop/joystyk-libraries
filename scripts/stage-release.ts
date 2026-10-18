@@ -7,10 +7,16 @@ import { packArtifacts } from './release/artifacts.ts';
 import { artifactDirectory, loadArchive } from './release/archive.ts';
 import { packages, ROOT } from './release/packages.ts';
 import { run } from './release/run.ts';
+import {
+  assertStageEnvironment,
+  NPM_REGISTRY,
+  RELEASE_REPOSITORY,
+  RELEASE_REPOSITORY_URL,
+} from './release/identity.ts';
 
 if (!process.argv.includes('--stage') && !process.argv.includes('--verify-live'))
   throw new Error(
-    'Use --stage in the protected hosted workflow, or --verify-live after owner approval. See docs/references/npm-releasing.md.',
+    'Use --stage in the protected hosted workflow, or --verify-live after owner approval. See docs/RELEASING.md.',
   );
 const staging = process.argv.includes('--stage');
 const archive = artifactDirectory();
@@ -21,20 +27,11 @@ if (readdirSync(join(ROOT, '.changeset')).some((file) => file.endsWith('.md') &&
   throw new Error('Consume pending changesets in a reviewed version change first');
 
 if (staging) {
-  const repository = process.env['NPM_RELEASE_REPOSITORY'];
-  if (
-    !repository ||
-    process.env['GITHUB_REPOSITORY'] !== repository ||
-    process.env['GITHUB_REF'] !== 'refs/heads/main' ||
-    process.env['GITHUB_ACTIONS'] !== 'true' ||
-    process.env['RUNNER_ENVIRONMENT'] !== 'github-hosted' ||
-    process.env['NPM_PUBLISHERS_READY'] !== 'true'
-  )
-    throw new Error('Staging requires the configured main-only hosted workflow and confirmed per-package publishers');
+  assertStageEnvironment(process.env);
   for (const { manifest } of packages())
-    if (manifest.repository?.url !== `git+https://github.com/${repository}.git`)
+    if (manifest.repository?.url !== RELEASE_REPOSITORY_URL)
       throw new Error(`${manifest.name}: provenance repository does not match workflow source`);
-  const result = await fetch(`https://api.github.com/repos/${repository}`, {
+  const result = await fetch(`https://api.github.com/repos/${RELEASE_REPOSITORY}`, {
     headers: { accept: 'application/vnd.github+json' },
   });
   if (!result.ok || z.object({ private: z.boolean() }).parse(await result.json()).private)
@@ -45,7 +42,7 @@ const registryVersion = async (
   name: string,
   version: string,
 ): Promise<{ readonly integrity: string; readonly latest?: string } | null> => {
-  const response = await fetch(`https://registry.npmjs.org/${encodeURIComponent(name)}`);
+  const response = await fetch(`${NPM_REGISTRY}/${encodeURIComponent(name)}`);
   if (response.status === 404) return null;
   if (!response.ok) throw new Error(`Registry read failed (${response.status}) for ${name}`);
   const data = z
@@ -88,6 +85,8 @@ try {
         item.tarball,
         '--access',
         'public',
+        '--registry',
+        NPM_REGISTRY,
         '--provenance',
         '--tag',
         'latest',
@@ -113,7 +112,7 @@ try {
   console.log(
     staging
       ? 'Staging finished. Staged entries still require owner 2FA approval; no live release tags were created.'
-      : 'All 15 live package versions, tarball integrities and latest tags verified.',
+      : `All ${artifacts.items.length} live package versions, tarball integrities and latest tags verified.`,
   );
 } finally {
   artifacts.cleanup();

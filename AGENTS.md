@@ -39,6 +39,7 @@ Use Node from `.nvmrc` and pnpm from `package.json`.
 | `pnpm test:browser` | Real Chromium component tests |
 | `pnpm format:check` / `pnpm format` | Check or apply the pinned formatter |
 | `pnpm check:release` | Strict tarball metadata and isolated installed consumers |
+| `pnpm release:bootstrap` | Preview npm name placeholders; `--publish` requires owner instruction |
 
 ## Essential invariants
 

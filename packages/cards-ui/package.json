@@ -1,6 +1,6 @@
 {
   "name": "@joystyk/cards-ui",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Shared card-game UI: original card faces and backs, pile layouts, <jy-card-table>, the pointer and keyboard controller for solitaire and other card games, and <jy-card-hand>, the hand widget for multiplayer card games.",
   "private": false,
   "type": "module",
@@ -67,11 +67,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/The-Zoop-Troop/joystyk-libraries.git",
+    "url": "git+https://github.com/joystyk-games/game-libraries.git",
     "directory": "packages/cards-ui"
   },
-  "homepage": "https://github.com/The-Zoop-Troop/joystyk-libraries/tree/main/packages/cards-ui#readme",
+  "homepage": "https://github.com/joystyk-games/game-libraries/tree/main/packages/cards-ui#readme",
   "bugs": {
-    "url": "https://github.com/The-Zoop-Troop/joystyk-libraries/issues"
+    "url": "https://github.com/joystyk-games/game-libraries/issues"
   }
 }

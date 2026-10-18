@@ -1,6 +1,6 @@
 {
   "name": "@joystyk/arcade",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Shared real-time input, pause, paces and ghost races.",
   "private": false,
   "type": "module",
@@ -49,11 +49,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/The-Zoop-Troop/joystyk-libraries.git",
+    "url": "git+https://github.com/joystyk-games/game-libraries.git",
     "directory": "packages/arcade"
   },
-  "homepage": "https://github.com/The-Zoop-Troop/joystyk-libraries/tree/main/packages/arcade#readme",
+  "homepage": "https://github.com/joystyk-games/game-libraries/tree/main/packages/arcade#readme",
   "bugs": {
-    "url": "https://github.com/The-Zoop-Troop/joystyk-libraries/issues"
+    "url": "https://github.com/joystyk-games/game-libraries/issues"
   }
 }

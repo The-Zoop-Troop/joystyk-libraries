@@ -1,6 +1,6 @@
 {
   "name": "@joystyk/rooms",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "The room server: a pure room core, the versioned wire protocol and a Node adapter (WebSockets, SQLite, timers, worker jobs).",
   "private": false,
   "type": "module",
@@ -61,11 +61,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/The-Zoop-Troop/joystyk-libraries.git",
+    "url": "git+https://github.com/joystyk-games/game-libraries.git",
     "directory": "packages/rooms"
   },
-  "homepage": "https://github.com/The-Zoop-Troop/joystyk-libraries/tree/main/packages/rooms#readme",
+  "homepage": "https://github.com/joystyk-games/game-libraries/tree/main/packages/rooms#readme",
   "bugs": {
-    "url": "https://github.com/The-Zoop-Troop/joystyk-libraries/issues"
+    "url": "https://github.com/joystyk-games/game-libraries/issues"
   }
 }
