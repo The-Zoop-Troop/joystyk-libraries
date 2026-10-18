@@ -7,7 +7,8 @@ the newly ready work. Do not mirror statuses in markdown checklists.
 
 The initial local checkout uses prefix `jlib`. It is a new tracker, not a copy of another
 project's database. When joining a published checkout, use `bd bootstrap` to recover the
-remote tracker. Do not reinitialize existing history. Before the remote is created, changes
+remote tracker. Configure the clone-local role with `git config beads.role contributor`
+(or `maintainer` for repository administrators). Do not reinitialize existing history. Before the remote is created, changes
 remain local. Once authorized, use `bd dolt push` and `bd dolt pull` for tracker sync.
 
 Design documents explain mechanisms; decisions record settled choices; Beads records pending

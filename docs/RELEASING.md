@@ -20,6 +20,10 @@ that verification. Never infer these settings from a passing source check.
 Review and approve each [stage](https://docs.npmjs.com/staged-publishing/) on npm separately.
 Bootstrap or staging is an external action requiring owner instruction.
 
+Create trusted-publisher configurations close to an approved release: npm expires new
+configurations if their first successful publish does not occur within two days. Verify
+current records and npm's first-use requirements before setting publisher readiness.
+
 The workflow retains verified tarballs and partial receipts. After owner approval, use
 `pnpm release:stage --verify-live --artifact-dir /path/to/verified/archive` for read-only live
 integrity and dist-tag checks. Do not repack between consumer validation and staging.
