@@ -16,6 +16,8 @@ fixed-step runner remains the authority; these helpers send intentions and draw 
   it never dispatches to the live runner. Inputs use the runner's zero-based tick convention.
 - `mountArcade` combines the Gyral HUD with these helpers. A game supplies its status, input
   mapping, score and a lazy renderer factory. Daily locks pace and omits ghost races.
+  Direct viewport paragraphs are graphics notices: empty notices occupy no space;
+  a renderer's nonempty error or recovery message remains visible above the board.
 - `createControlDrivers`, `resumeAfter`, `bindPagePause`, `swipeDirection` and the direction
   maps let existing games adopt the helpers without changing their public controls or rules.
 

@@ -8,6 +8,7 @@ import * as z from 'zod';
 import { defaultFilter } from './filter.ts';
 import { createLogger } from './log.ts';
 import type { CallInfo, CompletionFailure, ModelClient, ModelErrorKind } from './model.ts';
+import { createPackPublisher, packItemId, rebuildPackIndex } from './packs.ts';
 import { rebuildIndex, runPipeline, withdrawItem, type DailyGenerator, type PipelineOptions } from './pipeline.ts';
 import { createPublisher } from './publish.ts';
 import { openStore, type ContentStore } from './store.ts';
@@ -238,6 +239,37 @@ describe('runPipeline', () => {
     expect(again.calls).toEqual([]);
     expect(report.slots.map((s) => s.action)).toEqual(['existing', 'existing']);
     expect(await readIndex(dir)).toEqual(before);
+  });
+
+  it('keeps companion packs out of the daily index while preserving their own catalog', async () => {
+    const { dir, store, publisher } = setup();
+    try {
+      await run(store, fakeModel(() => ({})).model, { publisher });
+      const packs = createPackPublisher(join(dir, 'daily'));
+      const config = { words: ['apple', 'river'] };
+      const file = packs.writePack('demo-game', 'animals', config);
+      const row = store.createItem({
+        gameId: 'demo-game',
+        puzzleId: packItemId('demo-game', 'animals'),
+        date: '2026-10-08',
+        inputs: {},
+        seed: 'animals',
+        answer: null,
+        now: NOW,
+      });
+      store.updateItem(row.id, { status: 'published', config, contentHash: file.hash, size: file.size }, NOW);
+      rebuildPackIndex(store, packs, 'demo-game');
+      const packIndex = readFileSync(join(dir, 'daily/demo-game/packs/index.json'), 'utf8');
+
+      rebuildIndex(store, publisher, 'demo-game', '2026-10-08');
+
+      expect((await readIndex(dir)).dates.map((entry) => entry.date)).toEqual(['2026-10-08', '2026-10-09']);
+      expect(store.current(packItemId('demo-game', 'animals'))?.status).toBe('published');
+      expect(readFileSync(join(dir, 'daily/demo-game/packs/index.json'), 'utf8')).toBe(packIndex);
+      expect(existsSync(join(dir, 'daily', file.file))).toBe(true);
+    } finally {
+      store.close();
+    }
   });
 
   it.each([

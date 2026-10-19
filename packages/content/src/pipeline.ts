@@ -767,7 +767,7 @@ export const rebuildIndex = (
   publisher.writeIndex(
     gameId,
     rows
-      .filter((row) => row.contentHash !== null && row.size !== null)
+      .filter((row) => row.puzzleId === makePuzzleId(gameId, row.date) && row.contentHash !== null && row.size !== null)
       .map((row) => ({ date: row.date, hash: row.contentHash as string, size: row.size as number })),
   );
 };

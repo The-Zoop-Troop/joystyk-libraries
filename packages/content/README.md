@@ -61,6 +61,9 @@ const report = await runPipeline({
 - **Takedowns.** `withdrawItem` marks an item withdrawn with a reason code and actor, drops it
   from the index at once, and leaves the slot for the next run. The withdrawn answer counts as
   used, so the replacement differs. The old file stays for games already started on it.
+- **Separate catalogs.** A game may publish daily puzzles and companion packs in the same
+  store. Daily indexes include only canonical `<game>:<date>` items; packs stay in their
+  own catalog and never appear as duplicate daily dates or missing daily files.
 - **A game's own checks in the report.** `generate` receives `record(name, detail)`; what a
   game records lands in that attempt's report as `checks[name]`, whether the attempt passes
   or fails, and so in the item's provenance. Crossword records each variant's grids,
